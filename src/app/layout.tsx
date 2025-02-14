@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import AuthProvider from "@/context/AuthProvide";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,9 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <AuthProvider>
+        <body className=" overflow-x-hidden">
+          <Toaster />
+          {children}
+        </body>
+      </AuthProvider>
     </html>
   );
 }
