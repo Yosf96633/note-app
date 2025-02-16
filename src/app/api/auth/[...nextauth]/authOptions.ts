@@ -56,9 +56,6 @@ export const authOption: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ account, profile, user }) {
-      // console.log("account object in signIn callback", account);
-      // console.log("profile object in signIn callback", profile);
-      // console.log("user object in signIn callback", user);
       await connectDB();
       let data = await userModel.findOne({ email: user?.email });
       if (account?.provider === "google") {
@@ -77,9 +74,6 @@ export const authOption: NextAuthOptions = {
       return true;
     },
     async jwt({ token, user, account }) {
-      console.log("Token in jwt", token);
-      console.log("User in jwt", user);
-      console.log("account in jwt", account);
       if (user) {
         (token.name = user.name || user.username),
           (token.email = user.email),

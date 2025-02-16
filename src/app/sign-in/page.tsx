@@ -11,6 +11,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormDescription,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
@@ -38,8 +39,8 @@ const page = () => {
     resolver: zodResolver(signInSchema),
   });
   return (
-    <div className=" min-h-screen w-screen bg-gray-200 md:grid md:place-content-center p-8">
-      <div className="bg-white rounded-2xl shadow-xl px-12 py-8 my-8 md:w-[40vw] max-md:relative max-md:top-8">
+    <div className=" min-h-screen w-screen md:grid md:place-content-center p-4 md:p-8">
+      <div className="bg-[#18181B] text-white  rounded-2xl shadow-xl px-6 md:px-12 py-4 md:py-8 my-4 md:my-8 md:w-[40vw] max-md:relative max-md:top-8">
         <div className=" space-y-4 my-4">
           <h1 className="text-4xl font-bold text-center">Welcome Back</h1>
           <p className="text-center text-sm font-normal">
@@ -57,6 +58,9 @@ const page = () => {
                   <FormControl>
                     <Input placeholder="johndoe@example.com" {...field} />
                   </FormControl>
+                  <FormDescription className=" text-white">
+                    We'll never share your email with anyone else.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -88,12 +92,18 @@ const page = () => {
                       </button>
                     </div>
                   </FormControl>
+                  <FormDescription className=" text-white">
+                    Your password must be at least 8 characters long.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className=" flex flex-col justify-center items-center space-y-3">
-              <Button className="" type="submit">
+              <Button
+                className=" bg-white hover:bg-gray-200 text-black"
+                type="submit"
+              >
                 Login
               </Button>
               <div className=" flex justify-center items-center space-x-1">
@@ -122,7 +132,7 @@ const page = () => {
               console.error("Google Sign-In Error:", error);
             }
           }}
-          className="bg-white border border-black rounded-lg flex justify-center items-center p-1 space-x-2 cursor-pointer"
+          className="bg-white text-black border border-black rounded-lg flex justify-center items-center p-1 space-x-2 cursor-pointer"
         >
           <span>Continue with </span>
           <img className="size-5 md:size-8" src={googleIcon.src} alt="google" />
