@@ -7,8 +7,8 @@ import { Button } from "./ui/button";
 const Navbar = () => {
   const { data: session, status } = useSession();
   return (
-    <header className="  flex justify-between items-center text-white border-b border-white px-4 py-2">
-      <h1 className=" text-xl font-semibold">Notee</h1>
+    <header className="selection:bg-white selection:text-black  flex justify-between items-center sticky top-0 z-50 backdrop-blur-lg text-white border-b border-white px-5 py-4">
+      <h1 className=" text-2xl md:text-4xl font-semibold">Notee</h1>
       { status==="authenticated" && <div className=" flex items-center justify-center space-x-2">
         <Avatar>
           <AvatarImage src={session.user.image}/>

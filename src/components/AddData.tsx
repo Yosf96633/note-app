@@ -97,7 +97,7 @@ const AddData = () => {
             >
               Save
             </Button>
-          </DialogFooter>
+          </DialogFooter> 
         </DialogContent>
       </Dialog>
     </div>
