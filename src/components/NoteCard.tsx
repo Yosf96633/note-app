@@ -25,6 +25,7 @@ import {
     MenubarShortcut,
     MenubarTrigger,
   } from "@/components/ui/menubar"
+import axios from "axios";
   
 const NoteCard = ({ _id, userId, title, content, createdAt }: props) => {
   const formatDate = (dateString: string): string => {
@@ -51,7 +52,15 @@ const NoteCard = ({ _id, userId, title, content, createdAt }: props) => {
     <MenubarTrigger className="  bg-black border-none outline-none"><EllipsisVertical  className=" text-white"/>
     </MenubarTrigger>
     <MenubarContent>
-      <MenubarItem className="flex text-red-500 hover:text-red-600 justify-center items-center space-x-2">
+      <MenubarItem onClick={async ()=>{
+        try {
+          const response = await axios.delete(`/api/delete-note/${userId.toString()}/${_id.toString()}`)
+          console.log(response.data);
+        } catch (error) {
+           console.log(error)
+        }
+           
+      }} className="flex text-red-500 hover:text-red-600 justify-center items-center space-x-2">
         <Trash className=" size-5"/><p>Delete</p>
       </MenubarItem>
 

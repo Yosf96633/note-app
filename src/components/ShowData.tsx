@@ -40,7 +40,7 @@ const ShowData = () => {
   if (loading) {
     return (
       <div className="pt-12 md:pt-32 flex justify-center items-center">
-        <LoaderCircle className="animate-spin" />
+        <LoaderCircle className=" size-10 animate-spin" />
       </div>
     );
   }
@@ -48,7 +48,7 @@ const ShowData = () => {
   return (
     <div className="px-6 py-16">
       {notes.length === 0 ? (
-        <div>
+        <div className=" selection:bg-white selection:text-black">
           <p className="text-white text-base text-center">No notes found!</p>
         </div>
       ) : (

@@ -17,9 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 const AddData = () => {
-    const router = useRouter();
     const {data:session , status} = useSession();
   const [title, setTitle] = useState<string>(``);
   const [content, setContent] = useState<string>(``);
