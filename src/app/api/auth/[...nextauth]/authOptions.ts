@@ -1,6 +1,6 @@
 import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions , User } from "next-auth";
 import connectDB from "@/lib/connectDB";
 import userModel from "@/models/user.model";
 import bcryptjs from "bcryptjs";
@@ -20,7 +20,7 @@ export const authOption: NextAuthOptions = {
           type: "password",
         },
       },
-      async authorize(credentials: any): Promise<any> {
+      async authorize(credentials:Record<"email" | "password", string> | undefined): Promise<User | null>  {
         try {
           await connectDB();
           if (!credentials || !credentials.email || !credentials.password) {
@@ -39,6 +39,7 @@ export const authOption: NextAuthOptions = {
           }
           const { username, email, image } = user;
           return {
+
             username,
             email,
             image,

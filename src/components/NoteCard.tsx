@@ -15,14 +15,12 @@ interface props {
   content: string;
   createdAt: string;
 }
-import { EllipsisVertical , Trash , FilePenLine} from 'lucide-react';
+import { EllipsisVertical , Trash} from 'lucide-react';
 import {
     Menubar,
     MenubarContent,
     MenubarItem,
     MenubarMenu,
-    MenubarSeparator,
-    MenubarShortcut,
     MenubarTrigger,
   } from "@/components/ui/menubar"
 import axios from "axios";

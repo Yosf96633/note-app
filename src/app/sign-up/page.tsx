@@ -22,7 +22,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -37,14 +37,15 @@ const page = () => {
           description: response.data.message,
           variant: "default",
         });
+        router.push(`/sign-in`);
       }
-      router.push(`/sign-in`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error);
-
+      const axiosError = error as AxiosError<{ message: string }>;
+  
       toast({
         title: `Error`,
-        description: error.response?.data.message || `Something went wrong`,
+        description: axiosError.response?.data?.message || `Something went wrong`,
         variant: "destructive",
       });
     }
@@ -89,7 +90,7 @@ const page = () => {
                     <Input placeholder="johndoe@example.com" {...field} />
                   </FormControl>
                   <FormDescription className=" text-white">
-                    We'll never share your email with anyone else.
+                    We&apos;ll never share your email with anyone else.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -173,4 +174,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

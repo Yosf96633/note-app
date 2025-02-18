@@ -2,7 +2,6 @@ import noteModel from "@/models/note.model";
 import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 export async function DELETE(
-  request: NextRequest,
   { params }: { params: Promise<{ userid: string; id: string }> }
 ) {
   try {

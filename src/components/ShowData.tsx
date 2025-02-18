@@ -17,7 +17,7 @@ type Notes = {
 
 const ShowData = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [notes, setNotes] = useState<Array<Notes>>([]);
   useEffect(() => {
     const fetchData = async () => {

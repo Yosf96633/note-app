@@ -19,11 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-const page = () => {
-  const router = useRouter();
-  const { toast } = useToast();
+const Page = () => {
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     const { email, password } = values;
     const response = await signIn("credentials", {
@@ -59,7 +55,7 @@ const page = () => {
                     <Input placeholder="johndoe@example.com" {...field} />
                   </FormControl>
                   <FormDescription className=" text-white">
-                    We'll never share your email with anyone else.
+                    We&apos;ll never share your email with anyone else.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -142,4 +138,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

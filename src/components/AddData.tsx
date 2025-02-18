@@ -40,9 +40,9 @@ const AddData = () => {
         </DialogTrigger>
         <DialogContent className="bg-[#18181B] text-white">
           <DialogHeader>
-            <DialogTitle className=" text-white">Edit profile</DialogTitle>
+            <DialogTitle className=" text-white">Create Note</DialogTitle>
             <DialogDescription className=" text-white">
-              Make changes to your profile here. Click save when you're done.
+            Write down notes, manage tasks, and stay productive.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
