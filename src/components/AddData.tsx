@@ -2,6 +2,8 @@
 import React from "react";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { LoaderCircle } from "lucide-react";
+
 import {
   Dialog,
   DialogTrigger,
@@ -15,10 +17,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
-import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useNotes } from "@/state/store";
 const AddData = () => {
-    const {data:session , status} = useSession();
+  const [open , setOpen] = useState(false)
+  const [isSubmitting , setIsSubmitting] = useState<boolean>(false)
+  const {addData} = useNotes();
+    const {data:session } = useSession();
   const [title, setTitle] = useState<string>(``);
   const [content, setContent] = useState<string>(``);
   return (
@@ -31,9 +36,9 @@ const AddData = () => {
              Write down notes, manage tasks, and stay productive.
             </p>
         </div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">
+          <Button variant="outline" onClick={()=>setOpen(true)}>
             <Plus />
             Add note
           </Button>
@@ -75,25 +80,22 @@ const AddData = () => {
           </div>
           <DialogFooter>
             <Button
-            onClick={async () => {
-                try {
-                  const response = await axios.post(`/api/add-data/${session?.user._id}`, {
-                    title,
-                    content,
-                  });
-              
-                  setTitle("");
-                  setContent("");
-                  console.log("Success:", response.data);
-                } catch (error) {
-                  console.error("Error adding data:", error);
-                }
-              }}
-              
+              onClick={async () => {
+                setIsSubmitting(true)
+                 if(session?.user._id){
+                  await addData({title , content} , session?.user._id)
+                 }
+                 setIsSubmitting(false);
+                 setTitle(``);
+                 setContent(``);
+                 setOpen(false)
+              }
+            }  
+               disabled={isSubmitting}    
               className=" text-black bg-white hover:bg-gray-200"
               type="submit"
             >
-              Save
+              {isSubmitting && <LoaderCircle className=" animate-spin"/>} {isSubmitting ? 'Saving..' : "Save"}
             </Button>
           </DialogFooter> 
         </DialogContent>

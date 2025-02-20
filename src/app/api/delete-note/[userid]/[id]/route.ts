@@ -1,43 +1,46 @@
+import { NextRequest, NextResponse } from "next/server";
+import connectDB from "@/lib/connectDB";
 import noteModel from "@/models/note.model";
 import mongoose from "mongoose";
-import { NextRequest } from "next/server";
+
 export async function DELETE(
+  req: NextRequest,
   { params }: { params: Promise<{ userid: string; id: string }> }
 ) {
+  await connectDB(); // Ensure DB is connected
+
+  console.log("Params:", params); // Debugging
+  const { userid, id } = await params;
+
+  if (!userid || !id) {
+    return NextResponse.json(
+      { success: false, message: "Invalid path parameters" },
+      { status: 400 }
+    );
+  }
+
   try {
-    const { userid, id } = await params;
-    if (!userid || !id) {
-      return Response.json(
-        { success: true, message: `Invalid path parameters` },
-        {
-          status: 400,
-        }
-      );
-    }
     const result = await noteModel.findOneAndDelete({
       userId: new mongoose.Types.ObjectId(userid),
       _id: new mongoose.Types.ObjectId(id),
     });
+
     if (!result) {
-      return Response.json(
-        { success: false, message: `Did not found result` },
-        {
-          status: 400,
-        }
+      return NextResponse.json(
+        { success: false, message: "Note not found" },
+        { status: 404 }
       );
     }
-    return Response.json(
-      { success: true, message: `Note deleted successfully` },
-      {
-        status: 200,
-      }
+
+    return NextResponse.json(
+      { success: true, message: "Note deleted successfully" },
+      { status: 200 }
     );
   } catch (error) {
-    return Response.json(
-      { success: false, message: `Internal server error` },
-      {
-        status: 500,
-      }
+    console.error("Error deleting note:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
     );
   }
 }

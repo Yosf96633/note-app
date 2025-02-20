@@ -1,16 +1,14 @@
 import React from "react";
-import { ObjectId } from "mongoose";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 interface props {
-  _id: ObjectId;
-  userId: ObjectId;
+  _id: string;
+  userId: string;
   title: string;
   content: string;
   createdAt: string;
