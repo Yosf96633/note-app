@@ -1,6 +1,6 @@
 import Google from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions , User } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import connectDB from "@/lib/connectDB";
 import userModel from "@/models/user.model";
 import bcryptjs from "bcryptjs";
@@ -20,7 +20,9 @@ export const authOption: NextAuthOptions = {
           type: "password",
         },
       },
-      async authorize(credentials:Record<"email" | "password", string> | undefined): Promise<User | null>  {
+      async authorize(
+        credentials: Record<"email" | "password", string> | undefined
+      ): Promise<User | null> {
         try {
           await connectDB();
           if (!credentials || !credentials.email || !credentials.password) {
@@ -39,7 +41,6 @@ export const authOption: NextAuthOptions = {
           }
           const { username, email, image } = user;
           return {
-
             username,
             email,
             image,
@@ -68,27 +69,26 @@ export const authOption: NextAuthOptions = {
           });
         }
         account.userId = data._id.toString();
-      }
-      else if(account?.provider === "credentials"){
+      } else if (account?.provider === "credentials") {
         account.userId = data._id.toString();
       }
       return true;
     },
     async jwt({ token, user, account }) {
       if (user) {
-        (token.name = user.name || user.username),
-          (token.email = user.email),
-          (token._id = account?.userId || user._id);
+        token.name = user.name || user.username;
+        token.email = user.email;
+        token._id = account?.userId || user._id;
         token.image = user.image;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
-        (session.user._id = token._id),
-          (session.user.name = token.name),
-          (session.user.email = token.email),
-          (session.user.image = token.image);
+        session.user._id = token._id;
+          session.user.name = token.name;
+          session.user.email = token.email;
+          session.user.image = token.image;
       }
       return session;
     },
@@ -97,5 +97,4 @@ export const authOption: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  
 };

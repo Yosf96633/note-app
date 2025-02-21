@@ -15,16 +15,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 const Page = () => {
-  const { toast } = useToast();
   const router = useRouter();
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -33,22 +31,10 @@ const Page = () => {
     try {
       const response = await axios.post(`/api/sign-up`, values);
       if (response.data.success) {
-        toast({
-          title: `Congratulations`,
-          description: response.data.message,
-          variant: "default",
-        });
         router.push(`/sign-in`);
       }
     } catch (error: unknown) {
       console.log(error);
-      const axiosError = error as AxiosError<{ message: string }>;
-  
-      toast({
-        title: `Error`,
-        description: axiosError.response?.data?.message || `Something went wrong`,
-        variant: "destructive",
-      });
     }
   }
   const [showPassword, setShowPassword] = useState<boolean>(false);

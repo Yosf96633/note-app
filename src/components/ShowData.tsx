@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { LoaderCircle } from "lucide-react";
 import NoteCard from "./NoteCard";
 import { useNotes } from "@/state/store";
@@ -15,7 +15,7 @@ const ShowData = () => {
     return () => {
       resetLoading();
     };
-  }, [session?.user?._id]); 
+  }, [session?.user?._id , getData, resetLoading]); 
 
   if (loading) {
     return (
