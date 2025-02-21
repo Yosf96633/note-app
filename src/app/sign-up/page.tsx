@@ -22,6 +22,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
@@ -167,7 +168,7 @@ const Page = () => {
           className="bg-white  text-black border border-black rounded-lg flex justify-center items-center p-1 space-x-2 cursor-pointer"
         >
           <span>Continue with </span>
-          <img className="size-5 md:size-8" src={googleIcon.src} alt="google" />
+          <Image className="size-5 md:size-8" src={googleIcon.src} alt="google" />
         </div>
       </div>
     </div>

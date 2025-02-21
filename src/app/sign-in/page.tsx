@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 const Page = () => {
   async function onSubmit(values: z.infer<typeof signInSchema>) {
     const { email, password } = values;
@@ -131,7 +132,7 @@ const Page = () => {
           className="bg-white text-black border border-black rounded-lg flex justify-center items-center p-1 space-x-2 cursor-pointer"
         >
           <span>Continue with </span>
-          <img className="size-5 md:size-8" src={googleIcon.src} alt="google" />
+          <Image className="size-5 md:size-8" src={googleIcon.src} alt="google" />
         </div>
       </div>
     </div>

@@ -8,9 +8,7 @@ export async function DELETE(
   { params }: { params: Promise<{ userid: string; id: string }> }
 ) {
   await connectDB(); // Ensure DB is connected
-
-  console.log("Params:", params); // Debugging
-  const { userid, id } = await params;
+    const { userid, id } = await params;
 
   if (!userid || !id) {
     return NextResponse.json(
@@ -33,7 +31,7 @@ export async function DELETE(
     }
 
     return NextResponse.json(
-      { success: true, message: "Note deleted successfully" },
+      { success: true, message: "Note deleted successfully" , result ,  },
       { status: 200 }
     );
   } catch (error) {

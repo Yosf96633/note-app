@@ -6,13 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-interface props {
-  _id: string;
-  userId: string;
-  title: string;
-  content: string;
-  createdAt: string;
-}
 import { EllipsisVertical , Trash} from 'lucide-react';
 import {
     Menubar,
@@ -22,8 +15,17 @@ import {
     MenubarTrigger,
   } from "@/components/ui/menubar"
 import axios from "axios";
-  
+import { useNotes } from "@/state/store";
+interface props {
+  _id: string;
+  userId: string;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
 const NoteCard = ({ _id, userId, title, content, createdAt }: props) => {
+  const {deleteNote} = useNotes();
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -52,6 +54,10 @@ const NoteCard = ({ _id, userId, title, content, createdAt }: props) => {
         try {
           const response = await axios.delete(`/api/delete-note/${userId.toString()}/${_id.toString()}`)
           console.log(response.data);
+          if(response.data?.success){
+                deleteNote(response.data.result._id);
+               
+          }
         } catch (error) {
            console.log(error)
         }

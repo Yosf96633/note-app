@@ -20,6 +20,7 @@ interface useNotesInterface {
     id: string
   ) => Promise<void>;
   getData: (id: string) => Promise<void>;
+  deleteNote : (id : string) => void;
 }
 export const useNotes = create<useNotesInterface>((set, get) => ({
   notes: [] ,
@@ -53,4 +54,9 @@ export const useNotes = create<useNotesInterface>((set, get) => ({
       loading : false,
     }))
   },
+   deleteNote(id) {
+      set((state)=>({
+         notes : state.notes.filter((note , i)=>note._id!==id),
+      }))
+   },
 }));
