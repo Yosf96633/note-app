@@ -4,6 +4,7 @@ import { NextAuthOptions, User } from "next-auth";
 import connectDB from "@/lib/connectDB";
 import userModel from "@/models/user.model";
 import bcryptjs from "bcryptjs";
+import mongoose from "mongoose";
 export const authOption: NextAuthOptions = {
   providers: [
     CredentialsProvider({
