@@ -132,7 +132,7 @@ const Page = () => {
           className="bg-white text-black border border-black rounded-lg flex justify-center items-center p-1 space-x-2 cursor-pointer"
         >
           <span>Continue with </span>
-          <Image className="size-5 md:size-8" src={googleIcon.src} alt="google" />
+          <Image width={1.25} height={1.25}  className="md:size-8" src={googleIcon.src} alt="google" />
         </div>
       </div>
     </div>
